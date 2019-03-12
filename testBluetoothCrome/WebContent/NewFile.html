@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<title>Insert title here</title>
+</head>
+<body>
+	<p>--- feature_name: Web Bluetooth / Device Info chrome_version: 45
+	check_min_version: true feature_id: 5264933985976320 icon_url: icon.png
+	index: index.html --- {% include_relative _includes/intro.html %}
+</p>
+	<p>
+		This sample illustrates the use of the Web Bluetooth API to retrieve
+		basic device information from a nearby Bluetooth Low Energy Device.
+		You may want to check out the <a href="device-info-async-await.html">Device
+			Info (Async Await)</a> sample.
+	</p>
+
+	<form>
+		<label for="allDevices">All Devices</label> 
+		<input id="allDevices" type="checkbox"> 
+		<input id="service" type="text" size=17	list="services" placeholder="Bluetooth Service"> 
+		<input id="name" type="text" size=17 placeholder="Device Name"> 
+		<input id="namePrefix" type="text" size=17 placeholder="Device Name Prefix">
+		<button>Get Bluetooth Device Info</button>
+	</form>
+
+	<script>
+		document.querySelector('form').addEventListener('submit',
+				function(event) {
+					event.stopPropagation();
+					event.preventDefault();
+					if (isWebBluetoothEnabled()) {
+						onButtonClick();
+					}
+				});
+		
+		function onButtonClick() {
+			navigator.bluetooth.requestDevice({acceptAllDevices: true})
+			.then(device => { console.log(device) })
+			.catch(error => { console.log(error); });
+			}
+		
+		function isWebBluetoothEnabled() {
+			if (navigator.bluetooth) {
+				return true;
+			} else {
+				alert('ciao non funziono');
+				return false;
+			}
+		}
+	</script>
+
+</body>
+</html>
